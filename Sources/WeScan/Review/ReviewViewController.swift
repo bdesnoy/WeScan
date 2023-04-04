@@ -58,7 +58,13 @@ final class ReviewViewController: UIViewController {
 
     init(results: ImageScannerResults) {
         self.results = results
+        let imageSize = self.results.croppedScan.image.size
         super.init(nibName: nil, bundle: nil)
+        
+        if imageSize.height > imageSize.width {
+            self.rotationAngle = Measurement<UnitAngle>(value: 90, unit: .degrees)
+        }
+        self.reloadImage()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -160,12 +166,15 @@ final class ReviewViewController: UIViewController {
     }
 
     @objc func rotateImage() {
-        rotationAngle.value += 90
-
-        if rotationAngle.value == 360 {
-            rotationAngle.value = 0
+        
+        let imageSize = self.results.croppedScan.image.size
+        if imageSize.height == imageSize.width {
+            rotationAngle.value += 90
+        } else {
+            rotationAngle.value += 180
         }
-
+        
+        rotationAngle.value = rotationAngle.value.truncatingRemainder(dividingBy: 360)
         reloadImage()
     }
 
