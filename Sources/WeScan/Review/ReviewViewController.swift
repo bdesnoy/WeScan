@@ -62,7 +62,8 @@ final class ReviewViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         if imageSize.height > imageSize.width {
-            self.rotationAngle = Measurement<UnitAngle>(value: 90, unit: .degrees)
+            let angle: Double = CaptureSession.current.landscapeImageOrientation == .right ? 270 : 90
+            self.rotationAngle = Measurement<UnitAngle>(value: angle, unit: .degrees)
         }
         self.reloadImage()
     }

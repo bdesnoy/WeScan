@@ -25,6 +25,8 @@ final class CaptureSession {
 
     /// The orientation of the captured image
     var editImageOrientation: CGImagePropertyOrientation
+    
+    var landscapeImageOrientation: CGImagePropertyOrientation
 
     private init(isAutoScanEnabled: Bool = true, editImageOrientation: CGImagePropertyOrientation = .up) {
         self.device = AVCaptureDevice.default(for: .video)
@@ -32,6 +34,7 @@ final class CaptureSession {
         self.isEditing = false
         self.isAutoScanEnabled = isAutoScanEnabled
         self.editImageOrientation = editImageOrientation
+        self.landscapeImageOrientation = .left
     }
 
 }

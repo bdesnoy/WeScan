@@ -30,6 +30,12 @@ extension CaptureSession {
             /// This is to prevent the landscape orientation being incorrectly used
             /// Higher = easier for landscape to be detected, lower = easier for portrait to be detected
             let motionThreshold = 0.35
+            
+            if data.acceleration.x >= 0 {
+                self.landscapeImageOrientation = .left
+            } else {
+                self.landscapeImageOrientation = .right
+            }
 
             if data.acceleration.x >= motionThreshold {
                 self.editImageOrientation = .left
